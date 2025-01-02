@@ -1989,10 +1989,10 @@ class Entity extends EventEmitter {
         // Reset acceleration
         this.accel.null();
         // Apply motion
-        this.stepRemaining = 1;
-        if (Config.SPACE_PHYSICS) this.stepRemaining = 2;
         this.x += (this.stepRemaining * this.velocity.x) / Config.runSpeed;
         this.y += (this.stepRemaining * this.velocity.y) / Config.runSpeed;
+        this.stepRemaining = 1;
+        if (Config.SPACE_PHYSICS) this.stepRemaining = 2;
     }
     friction() {
         var motion = this.velocity.length,
