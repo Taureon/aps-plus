@@ -529,12 +529,21 @@ class Canvas {
                 }
                 this.controlTouchPos = { x: touchX, y: touchY };
                 if (this.spinLock) {
-                    if (cx < -radius) cx = -radius;
-                    else if (cx > radius) cx = radius;
-                    if (cy < -radius) cy = -radius;
-                    else if (cy > radius) cy = radius;
-                    this.target.x = ((cx / radius) * global.screenWidth) / 2;
-                    this.target.y = ((cy / radius) * global.screenHeight) / 2;
+                    let scale = 1;
+                    //if (cx < -radius) cx = -radius;
+                    //else if (cx > radius) cx = radius;
+                    //if (cy < -radius) cy = -radius;
+                    //else if (cy > radius) cy = radius;
+                    if (cx < -radius) scale = -radius / cx;
+                    else if (cx > radius) scale = radius / cx;
+                    if (cy < -radius) {
+                        if (scale > -radius / cy) scale = -radius / cy;
+                    }
+                    else if (cy > radius) {
+                        if (scale > radius / cy) scale = radius / cy;
+                    }
+                    this.target.x = ((cx * scale / radius) * global.screenWidth) / 2;
+                    this.target.y = ((cy * scale / radius) * global.screenHeight) / 2;
                 }
             }
         }
